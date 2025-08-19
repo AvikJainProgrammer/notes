@@ -1,0 +1,449 @@
+questions:
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       "`What is the command to start a virtual environment in Python?`"
+    answer: "python3 -m venv <name>"
+    case_sensitive: false
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       "`Once you have create a virtual environment and you are working on vs code, what should your next setp be?`"
+    answer: "Select Interpreter"
+    case_sensitive: false
+  - question_id: 4
+    question_type: list_completion
+    question_text: |
+       "List the steps to be followed after creating a virtual environment in Python." 
+    answer:
+      - "Select Interpreter on VS Code"
+      - "Enter path to the python interpreter"
+      - "Activate the virtual environment"
+    case_sensitive: true
+    order_sensitive: false
+  - question_id: 
+    question_type: qna
+    question_text: |
+       "`What is the command to activate the virtual environment when using venv?`"
+    answer: "source venv_name/Scripts/activate.bat"  
+    case_sensitive: false
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       "`How do you install fast api`"
+    answer: "pip install fastapi[all]"
+    case_sensitive: false
+  - question_id: 1
+    question_type: qna
+    question_text: |
+      WHen using the command `pip install fastapi[all]`, what does the `[all]` signify?
+    answer: Install all optional dependencies
+    case_sensitive: false
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       "`What is the command to see all the installed dependencies in a virtual environment?`"
+    answer: "pip freeze"
+    case_sensitive: false
+  - question_id: 8
+    question_type: write_code
+    language: python
+    question_text: |
+       "Write the fast api starter Code"
+    question_code: |
+      from fastapi import FastAPI
+      app = FastAPI()
+
+      @app.get("/"):
+          async def root():
+              return {"message": "Hello World"}
+    case_sensitive: true
+    guided: true
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       "`What is the command to run a fast api application?`"
+    answer: "uvicorn main:app --reload"
+    case_sensitive: false
+  - question_id: 1
+    question_type: qna
+    question_text: |
+        Do you need async function in the following code?
+        ```python
+        from fastapi import FastAPI
+        app = FastAPI()
+        @app.get("/")
+        async def root():
+            return {"message": "Hello World"}
+        ```
+    answer: "No, there is no async operation in the code"
+    case_sensitive: false
+  - question_id: 2
+    question_type: fib
+    question_text: "In order to make a function related to fast api we need to add a <<decorator>> to the function"
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: python
+    question_text: |
+       "Fill in the missing parts of the python program to make sure that root function is a part of the fast api application"
+    question_code: |
+        from fastapi import FastAPI
+        app = FastAPI()
+        <<@app.get("/")>>
+        async def root():
+            return {"message": "Hello World"}
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: python
+    question_text: |
+       "Fill in the missing part such that on the browser localhost:8000/posts/vote needs to return the message 'Hello World'"
+    question_code: |
+        from fastapi import FastAPI
+        app = FastAPI()
+        <<@app.get("/posts/vote")>>
+        async def root():
+            return {"message": "Hello World"}
+    case_sensitive: true
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       In the following command why do we use `--reload`?
+       ```bash
+       uvicorn main:app --reload
+       ```
+    answer: "To enable auto-reload of the server on code changes"
+    case_sensitive: false
+  - question_id: 4
+    question_type: list_completion
+    question_text: |
+       "List the three comonents of a path operation in fast api."
+    answer:
+      - "Decorator"
+      - "Method"
+      - "Path"
+      - "Function"
+    case_sensitive: true
+    order_sensitive: false
+  - question_id: 3
+    question_type: mcq
+    question_text: |
+       "For an API endpoint, the function name can by anything, true or false?"
+    options:
+      - "True"
+      - "False"
+    correct_answer: "True"
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       "In the following code what would accessing get with the path `/` return?"
+       ```python
+       from fastapi import FastAPI
+       app = FastAPI()
+       @app.get("/")
+       async def root():
+           return {"message":"Hello World"}
+
+        @app.get("/")   
+        async def another_root():
+            return {"message": "Another Hello World"}
+        
+    answer: '{"message":"Hello World"}'
+    case_sensitive: false
+  - question_id: 2
+    question_type: fib
+    question_text: "With post request you <<send data to>> the server and with get request you <<do not send data to>> the server."
+    case_sensitive: true
+  - question_id: 
+    question_type: write_code
+    language: python
+    question_text: |
+       Write code to create a post request in fast api that returns the data sent in the request.
+       Data you need to send:
+        ```json
+        {
+          "title": "Some title",
+          "content": "Some content",
+        }
+        ```
+        return data:
+        ```json
+        {
+          "post_content" : "title: Some title, content: Some content"
+        }
+        ```
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+
+        app = FastAPI()
+        @app.post("/posts/")
+        async def create_post(payload: dict = Body(...)):
+            title = payload["title"]
+            content = payload["content"]
+            return {"post_content": f"title: {title}, content: {content}"}
+    case_sensitive: true
+    guided: true
+  - question_id: 8
+    question_type: write_code
+    language: python
+    question_text: |
+       "Fill in the comments in the following code."
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+
+        app = FastAPI()
+        @app.post("/posts/")
+        async def create_post(payload: dict = Body(...)): # <<Body>> is used to parse the <<request body>>
+            title = payload["title"]
+            content = payload["content"]
+            return {"post_content": f"title: {title}, content: {content}"}
+    case_sensitive: true
+    guided: true
+  - question_id: 2
+    question_type: fib
+    question_text: "We use pydantic to <<validate>> the data sent in the request body."
+    case_sensitive: true
+  - question_id: 8
+    question_type: write_code
+    language: python
+    question_text: |
+       "Rewrite the following code using pydantic to validate the data sent in the request body."
+       ```
+        from fastapi import FastAPI
+        from fastapi.params import Body
+
+        app = FastAPI()
+        @app.post("/posts/")
+        async def create_post(payload: dict = Body(...)):
+            title = payload["title"]
+            content = payload["content"]
+            return {"post_content": f"title: {title}, content: {content}"}
+       ```
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel
+
+        app = FastAPI()
+
+        class Post(BaseModel):
+            title: str
+            content: str
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            return {"post_content": f"title: {payload.title}, content: {payload.content}"}
+    case_sensitive: true
+    guided: true
+  - question_id: 8
+    question_type: write_code
+    language: python
+    question_text: |
+       Write a fast api code to create a post request that returns the data sent in the request body. Have a published property in the post model that is a boolean. The code should not return an error of published is not provided in the request body.
+        Data you need to send:
+          ```json
+          {
+            "title": "Some title",
+            "content": "Some content"
+          }
+          ```
+          return data:
+          ```json
+          {
+            "post_content" : "title: Some title, content: Some content, published: true"
+          }
+          ```
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel, Field
+
+        app = FastAPI()
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool = True
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            return {"post_content": f"title: {payload.title}, content: {payload.content}, published: {payload.published}"}
+    case_sensitive: true
+    guided: true
+  - question_id: 8
+    question_type: write_code
+    language: python
+    question_text: |
+       "Write a fast api code to create a post request that returns the data sent in the request body. Have a published property in the post model that is a boolean. The code should return an error if published is not provided in the request body."
+       Have another property called `rating` that is an integer and has a default value of None. `rating` should be optional.
+        Data you need to send:
+          ```json
+          {
+            "title": "Some title",
+            "content": "Some content"
+          }
+          ```
+          return data:
+          ```json
+          {
+            "post_content" : "title: Some title, content: Some content, published: true, rating: null"
+          }
+          ```
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+
+        app = FastAPI()
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            return {"post_content": f"title: {payload.title}, content: {payload.content}, published: {payload.published}, rating: {payload.rating}"}
+    case_sensitive: true
+    guided: true
+  - question_id: 7
+    question_type: code_fib
+    language: python
+    question_text: |
+        "In the missing blank write the code to print the dictionary from the pydantic model"
+    question_code: |
+        from fastapi import FastAPI
+        from pydantic import BaseModel
+
+        app = FastAPI()
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool = True
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            <<print(payload.dict())>>
+            return {"post_content": f"title: {payload.title}, content: {payload.content}, published: {payload.published}"}
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "It is a standard convention to use <<plural>> nouns for the path of the API endpoint"
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: text
+    question_text: |
+       "Fill in the CRUD operation names and the corresponding HTTP methods and path in the following"
+    question_code: |
+        <<Create>>: <<POST>> <</posts/>>
+        <<Read>>: <<GET>> <</posts/{id}>> or <<GET>> <</posts/>>
+        <<Update>>: <<PUT>> <</posts/{id}>>
+        <<Delete>>: <<DELETE>> <</posts/{id}>>
+    case_sensitive: true
+  - question_id: 8
+    question_type: write_code
+    language: python
+    question_text: |
+       "Write a hello world program in Python."
+    question_code: |
+       # your code here
+    case_sensitive: true
+    guided: true
+  - question_id: 8
+    question_type: write_code
+    language: python
+    question_text: |
+       "Write a fast api code to get posts and create posts. Use a list to store the posts."
+       Have id as an integer, title as a string, content as a string, and published as a boolean.
+       Generate a random number between 1 and 10000000 for the id.
+       post model:
+       ```json
+       {
+         "id": 1234567,
+         "title": "Some title",
+         "content": "Some content",
+         "published": true
+       }
+       ```
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+    case_sensitive: true
+    guided: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       In the following code add a function to find the post based on id. The function name should be `find_post` and it should return the post with the given id.
+       Then create a path operation to get the post with the given id.
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        <<def find_post(id: int):>>
+            <<for post in my_posts:>>
+                <<if post["id"] == id:>>
+                    <<return post>>
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+          @app.get("/posts/{id}")
+          async def find_post(id):
+              post = find_post(id)
+              return {"post": post}
+    case_sensitive: true
