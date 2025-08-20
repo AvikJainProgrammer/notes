@@ -442,8 +442,746 @@ questions:
             my_posts.append(post_dict)
             return {data}
 
-          @app.get("/posts/{id}")
-          async def find_post(id):
-              post = find_post(id)
-              return {"post": post}
+        <<@app.get("/posts/{id}")>>
+        <<async def get_post_by_id(id):>> 
+            <<post = find_post(int(id))>>
+            <<return {"post": post}>>
     case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       "Modify the following code such that if the path parameter `id` is not an integer, in the error message it should be evident that the id should be an integer."
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        <<async def get_post_by_id(id: int):>> 
+            <<post = find_post(id)>> # We will not use <<int(id)>> instead we use <<id>> directly
+            return {"post": post}
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       "Find the issue with the following code and mention the solution"
+    question_code: |
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int):
+            post = find_post(id) 
+            return {"post": post}
+        
+        @app.get("/posts/latest")
+        async def get_latest_post():
+            if not my_posts:
+                return {"message": "No posts available"}
+            latest_post = my_posts[-1]
+            return {"latest_post": latest_post}
+
+        # Issue : posts/latest matches with posts/{id} path operation
+        # Solution: Write posts/latest before posts/{id} path operation
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       "Modify the following code such that it returns a 404 error if the post with the given id is not found."
+       ```
+        from fastapi import FastAPI
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int):
+            post = find_post(id) 
+            return {"post": post}
+       ```
+    question_code: |
+        from fastapi import FastAPI, <<Response, status>>
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        # Use message "post with {id} not found" 
+        @app.get("/posts/{id}")
+        <<async def get_post_by_id(id: int, response: Response):>> # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                <<response.status_code = status.HTTP_404_NOT_FOUND>> # Can use <<404>> instead of <<status.HTTP_404_NOT_FOUND>>
+                <<return {"message": f"post with {id} not found"}>>
+            return {"post": post}
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: python
+    question_text: |
+       "In the following code, make it so that the lines in if not post part of the code can simply be written in one line"
+    question_code: |
+        from fastapi import FastAPI, <<Response, status, HTTPException>>
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        # Use message "post with {id} not found" 
+        @app.get("/posts/{id}")
+        <<async def get_post_by_id(id: int):>> # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                <<raise HTTPException(>>
+                    <<status_code=status.HTTP_404_NOT_FOUND,>>
+                    <<detail=f"post with {id} not found">>
+                <<)>>
+                # Alternatively, can use the following line
+                # response.status_code = status.HTTP_404_NOT_FOUND
+                # return {"message": f"post with {id} not found"}
+            return {"post": post}
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "Any time we create something we should send back a <<201>> status code."
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       "Modify the following code so that the post endpoin returns a 201 status code when a post is created."
+       ```
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/")
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        # Use message "post with {id} not found" 
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+       ```
+    question_code: |
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        <<@app.post("/posts/", status_code=status.HTTP_201_CREATED)>>
+        <<async def create_post(payload: Post):>>
+            <<post_dict = post.dict()>>
+            <<post_dict["id"] = randrange(1, 10000000)>>
+            <<my_posts.append(post_dict)>>
+            <<return {data}>>
+
+        # Use message "post with {id} not found" 
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: python
+    question_text: |
+      In the following code add delete posts endpoint to delete the post with the given id.
+      Also create a function to find the index of the post with the given id. Function name should be `find_index_post`.
+      Use that function in delete_post function with should be used for this endpoint.
+    question_code: |
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+        <<def find_index_post(id: int):>>
+            <<for index, post in enumerate(my_posts):>>
+                <<if post["id"] == id:>>
+                    <<return index>>
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/", status_code=status.HTTP_201_CREATED)
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+        
+        # Use message "post with {id} deleted successfully"
+        <<@app.delete("/posts/{id}")>>
+        <<async def delete_post(id: int):>>
+            <<index = find_index_post(id)>>
+            <<my_posts.pop(index)>>
+            <<return {"message": f"post with {id} deleted successfully"}>>
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       "Identify the issue with the delete posts end point and fix it"
+
+       ```
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+        <<def find_index_post(id: int):>>
+            <<for index, post in enumerate(my_posts):>>
+                <<if post["id"] == id:>>
+                    <<return index>>
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/", status_code=status.HTTP_201_CREATED)
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+        
+        # Use message "post with {id} deleted successfully"
+        @app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+        async def delete_post(id: int,):
+            index = find_index_post(id)
+            my_posts.pop(index)
+            return {"message": f"post with {id} deleted successfully"}
+       ```
+    question_code: |
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+        <<def find_index_post(id: int):>>
+            <<for index, post in enumerate(my_posts):>>
+                <<if post["id"] == id:>>
+                    <<return index>>
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/", status_code=status.HTTP_201_CREATED)
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+        
+        # Use message "post with {id} deleted successfully"
+        <<@app.delete("/posts/{id}, status_code=status.HTTP_204_NO_CONTENT)")>>
+        <<async def delete_post(id: int):>>
+            <<index = find_index_post(id)>>
+            <<my_posts.pop(index)>>
+            <<return Response(status_code=status.HTTP_204_NO_CONTENT)>>
+        # The issue was that <<the delete endpoint was returning a message instead of a 204 No Content status code.>>
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "In fast api when using 204 No Content status code, we <<do not return any data>> in the response."
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "In fast api for <<204>> No Content status code, we do not return any data in the response."
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       "Modify the code to handle the case where delete posts is called and the id does not exist"
+       ```
+        |
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+        <<def find_index_post(id: int):>>
+            <<for index, post in enumerate(my_posts):>>
+                <<if post["id"] == id:>>
+                    <<return index>>
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/", status_code=status.HTTP_201_CREATED)
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+        
+        # Use message "post with {id} deleted successfully"
+        @app.delete("/posts/{id}, status_code=status.HTTP_204_NO_CONTENT)")
+        async def delete_post(id: int):
+            index = find_index_post(id)
+            my_posts.pop(index)
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
+       ```
+    question_code: |
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+        <<def find_index_post(id: int):>>
+            <<for index, post in enumerate(my_posts):>>
+                <<if post["id"] == id:>>
+                    <<return index>>
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/", status_code=status.HTTP_201_CREATED)
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+        
+        # Use message "post with {id} deleted successfully"
+        # Use message "post with {id} not found" if the post with the given id does not exist
+        <<@app.delete("/posts/{id}, status_code=status.HTTP_204_NO_CONTENT)")>>
+        <<async def delete_post(id: int):>>
+            <<index = find_index_post(id)>>
+            <<if index is None:>>
+                <<raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with {id} not found">>
+            <<my_posts.pop(index)>>
+            <<return Response(status_code=status.HTTP_204_NO_CONTENT)>>
+    case_sensitive: true
+  - question_id: 7
+    question_type: code_fib
+    language: go
+    question_text: |
+       "Add a put endpoint to the following code"
+    question_code: |
+        from fastapi import FastAPI, Response, status, HTTPException
+        from fastapi.params import Body
+        from pydantic import BaseModel
+        from typing import Optional
+        from random import randrange
+
+        app = FastAPI()
+
+        my_posts = []
+
+        def find_post(id: int):
+            for post in my_posts:
+                if post["id"] == id:
+                    return post
+
+        <<def find_index_post(id: int):>>
+            <<for index, post in enumerate(my_posts):>>
+                <<if post["id"] == id:>>
+                    <<return index>>
+
+
+        class Post(BaseModel):
+            title: str
+            content: str
+            published: bool
+            rating: Optional[int] = None
+
+        @app.get("/posts/")
+        async def get_posts():
+            return {data: my_posts}
+
+        @app.post("/posts/", status_code=status.HTTP_201_CREATED)
+        async def create_post(payload: Post):
+            post_dict = post.dict()
+            post_dict["id"] = randrange(1, 10000000)
+            my_posts.append(post_dict)
+            return {data}
+
+        @app.get("/posts/{id}")
+        async def get_post_by_id(id: int): # Function name : get_post_by_id
+            post = find_post(id)
+            if not post:  # Check if post is None
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"post with {id} not found"
+                )
+            return {"post": post}
+        
+        @app.delete("/posts/{id}, status_code=status.HTTP_204_NO_CONTENT)")
+        async def delete_post(id: int):
+            index = find_index_post(id)
+            if index is None:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with {id} not found"
+            my_posts.pop(index)
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+        # Use message "post with {id} updated successfully"
+        # Use message "post with {id} not found" if the post with the given id does not exist
+        <<@app.put("/posts/{id}")>>
+        <<async def update_post(id: int, payload: Post):>>
+            <<index = find_index_post(id)>>
+            <<if index is None:>>
+                <<raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with {id} not found">>
+            <<post_dict = payload.dict()>>
+            <<post_dict["id"] = id>>
+            <<my_posts[index] = post_dict>>
+            <<return {"message": f"post with {id} updated successfully"}>>
+    case_sensitive: true
+  - question_id: 1
+    question_type: qna
+    question_text: |
+       "`How do use see the documentation of the fast api application?`"
+    answer: "http://localhost:8000/docs or http://localhost:8000/redoc"
+    case_sensitive: false
+  - question_id: 4
+    question_type: list_completion
+    question_text: |
+       "List the steps to structure a simple fast api application with just the main.py file"
+    answer:
+      - "Create folder called app"
+      - "add __init__.py file"
+      - "use uvicorn app.main:app --reload"
+    case_sensitive: true
+    order_sensitive: false
