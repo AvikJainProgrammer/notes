@@ -1279,3 +1279,23 @@ questions:
             return {"message": f"post with {id} updated successfully"}
     case_sensitive: true
     guided: true
+  - question_id: 2
+    question_type: fib
+    question_text: "We <<don't work or interact>> with databases directly. Instead we make use of <<Data Base Management Systems(DBMS)>>."
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "<<Structured Query Language(SQL)>> is used to communicate with DBMS."
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "Each instance of postgres can be carved into <<multiple databases>>."
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "A postgres needs to have <<at least one database>> because we cannot connect to a postgres instance without <<a database>>."
+    case_sensitive: true
+  - question_id: 2
+    question_type: fib
+    question_text: "A table represents a <<subject>> or an <<event>> in an application."
+    case_sensitive: true
