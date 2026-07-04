@@ -1,5 +1,5 @@
 questions:
-  - question_id: 8
+  - question_id: 1
     question_type: write_code
     language: python
     question_text: |
@@ -20,13 +20,13 @@ questions:
         pygame.display.update()
     case_sensitive: true
     guided: false
-  - question_id: 1
+  - question_id: 2
     question_type: qna
     question_text: |
       `What is the function to set the pygame window title`
     answer: pygame.display.set_caption('Runner')
     case_sensitive: false
-  - question_id: 7
+  - question_id: 3
     question_type: code_fib
     language: python
     question_text: |
@@ -47,7 +47,7 @@ questions:
 
         pygame.display.update()
     case_sensitive: true
-  - question_id: 7
+  - question_id: 4
     question_type: code_fib
     language: python
     question_text: |
@@ -70,7 +70,7 @@ questions:
         pygame.display.update()
         <<clock.tick(60)>>
     case_sensitive: true
-  - question_id: 4
+  - question_id: 5
     question_type: list_completion
     question_text: |
       `What are the 2 kinds of surfaces in pygame`
@@ -79,15 +79,15 @@ questions:
       - "regular surface"
     case_sensitive: true
     order_sensitive: false
-  - question_id: 2
+  - question_id: 6
     question_type: fib
     question_text: "We can have <<only one>> display surfaces but <<multiple>> regular surfaces. Regular surface is visible only if <<its attached to the display surface>>."
     case_sensitive: true
-  - question_id: 2
+  - question_id: 7
     question_type: fib
     question_text: "In order to create a colored surface you use the <<pygame.Surface((width,height))>> command. In order to set the color we use <<test_surface.fill('Red')>> command and to show the surface to the display we use <<screen.blit((test_surface),(0,0))>> command."
     case_sensitive: true
-  - question_id: 7
+  - question_id: 8
     question_type: code_fib
     language: python
     question_text: |
@@ -115,13 +115,13 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 1
+  - question_id: 9
     question_type: qna
     question_text: |
       `What is the function we use to get images as surface`
     answer: pygame.image.load('graphics/Sky.png')
     case_sensitive: false
-  - question_id: 7
+  - question_id: 10
     question_type: code_fib
     language: python
     question_text: |
@@ -148,7 +148,7 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 4
+  - question_id: 11
     question_type: list_completion
     question_text: |
       `List the three steps to display text in pygame.`
@@ -158,7 +158,7 @@ questions:
       - "Blit the text"
     case_sensitive: true
     order_sensitive: false
-  - question_id: 7
+  - question_id: 12
     question_type: code_fib
     language: python
     question_text: |
@@ -182,7 +182,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         <<screen.blit(text_surface,(300,50))>>
@@ -190,17 +190,17 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 1
+  - question_id: 13
     question_type: qna
     question_text: |
       `What is anti aliasing`
     answer: When computers smooth lines
     case_sensitive: false
-  - question_id: 2
+  - question_id: 14
     question_type: fib
     question_text: "the second parameter in text_font.render('My game', False, 'Green') is for <<anti aliasing>>."
     case_sensitive: true
-  - question_id: 7
+  - question_id: 15
     question_type: code_fib
     language: python
     question_text: |
@@ -225,7 +225,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -233,12 +233,12 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 7
+  - question_id: 16
     question_type: code_fib
     language: python
     question_text: |
       Modify the following code such that:
-      1. There is a snail image in the game. 
+      1. There is a snail image in the game.
       2. The snail image moves left 4 pixels every frame
       3. If the snail x position is -100 it should go back to 800
     question_code: |
@@ -263,7 +263,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -274,7 +274,7 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 4
+  - question_id: 17
     question_type: list_completion
     question_text: |
       `What are the two functions used to convert images to a more pygame frendly type`
@@ -283,7 +283,7 @@ questions:
       - "convert_alpha"
     case_sensitive: true
     order_sensitive: false
-  - question_id: 7
+  - question_id: 18
     question_type: code_fib
     language: python
     question_text: |
@@ -310,7 +310,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -321,7 +321,7 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 4
+  - question_id: 19
     question_type: list_completion
     question_text: |
       `What are the two main functions of lists.`
@@ -330,15 +330,15 @@ questions:
       - "Basic Collisions"
     case_sensitive: true
     order_sensitive: false
-  - question_id: 7
+  - question_id: 20
     question_type: code_fib
     language: python
     question_text: |
       In the following code.
-      1. Use rectangle to place the player character using the bottom right point. 
+      1. Use rectangle to place the player character using the bottom right point.
       2. Use rectangle to place the snail using mid bottom.
       3. Use the right property to check if the snail is going beyond the screen
-      4. Use left the place the snail in the correct position. 
+      4. Use left the place the snail in the correct position.
     question_code: |
       import pygame
       from sys import exit
@@ -367,7 +367,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -376,24 +376,24 @@ questions:
         <<if snail_rect.right <= 0: snail_rect.left = 800>>
         <<screen.blit(snail_surf,snail_rect)>>
         <<screen.blit(player_surf,player_rect)>>
-        
+
         # if snail_x_pos < -100: snail_x_pos = 800
         # screen.blit(snail_surface,(snail_x_pos,250))
 
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 1
+  - question_id: 21
     question_type: qna
     question_text: |
       `What is the function to check if a collision is happening`
     answer: rect1.colliderect(rect2)
     case_sensitive: false
-  - question_id: 2
+  - question_id: 22
     question_type: fib
     question_text: "rect1.colliderect(rect2) returns <<0>> if there is no collision otherwise it returns a <<1>>."
     case_sensitive: true
-  - question_id: 7
+  - question_id: 23
     question_type: code_fib
     language: python
     question_text: |
@@ -426,7 +426,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -435,20 +435,20 @@ questions:
         if snail_rect.right <= 0: snail_rect.left = 800
         screen.blit(snail_surf,snail_rect)
         screen.blit(player_surf,player_rect)
- 
+
         <<if player_rect.colliderect(snail_rect):>>
           <<print('collision')>>
 
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 1
+  - question_id: 24
     question_type: qna
     question_text: |
       `How do we check the collision of a rectangle and a point?`
     answer: rect.collidepoint((x,y))
     case_sensitive: false
-  - question_id: 4
+  - question_id: 25
     question_type: list_completion
     question_text: |
       `What are the two methods to get the mouse position?`
@@ -457,7 +457,7 @@ questions:
       - "event loop"
     case_sensitive: true
     order_sensitive: false
-  - question_id: 7
+  - question_id: 26
     question_type: code_fib
     language: python
     question_text: |
@@ -487,7 +487,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -496,7 +496,7 @@ questions:
         if snail_rect.right <= 0: snail_rect.left = 800
         screen.blit(snail_surf,snail_rect)
         screen.blit(player_surf,player_rect)
- 
+
         # if player_rect.colliderect(snail_rect):
         #   print('collision')
 
@@ -507,13 +507,13 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 1
+  - question_id: 27
     question_type: qna
     question_text: |
       `What is the mouse function the check if the mouse button was pressed`
     answer: pygame.mouse.get_pressed()
     case_sensitive: false
-  - question_id: 7
+  - question_id: 28
     question_type: code_fib
     language: python
     question_text: |
@@ -543,7 +543,7 @@ questions:
           if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -552,7 +552,7 @@ questions:
         if snail_rect.right <= 0: snail_rect.left = 800
         screen.blit(snail_surf,snail_rect)
         screen.blit(player_surf,player_rect)
- 
+
         # if player_rect.colliderect(snail_rect):
         #   print('collision')
 
@@ -563,7 +563,7 @@ questions:
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-  - question_id: 7
+  - question_id: 29
     question_type: code_fib
     language: python
     question_text: |
@@ -595,7 +595,7 @@ questions:
             exit()
           if event.type == pygame.MOUSEMOTION:
             print(event.pos)
-        
+
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
         screen.blit(text_surface,(300,50))
@@ -604,10 +604,8 @@ questions:
         if snail_rect.right <= 0: snail_rect.left = 800
         screen.blit(snail_surf,snail_rect)
         screen.blit(player_surf,player_rect)
- 
+
 
         pygame.display.update()
         clock.tick(60)
     case_sensitive: true
-
-  
