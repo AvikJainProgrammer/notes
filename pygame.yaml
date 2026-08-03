@@ -19,7 +19,7 @@ questions:
 
         pygame.display.update()
     case_sensitive: true
-    guided: false
+    guided: true
   - question_id: 2
     question_type: qna
     question_text: |
