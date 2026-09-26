@@ -1,0 +1,11 @@
+questions:
+  # 4. list_completion — user must supply every item in `answer`
+  - question_id: 4
+    question_type: list_completion
+    question_text: |
+      `What are the important thing about Rust`
+    answer:
+      - "Borrow Checker"
+      - "Idomatic Rust"
+    case_sensitive: false 
+    order_sensitive: false 
